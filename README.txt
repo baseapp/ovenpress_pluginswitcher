@@ -1,8 +1,8 @@
 === WPOven Plugin Switcher ===
 Contributors: https://www.wpoven.com/
 Requires at least: 6.6
-Tested up to: 6.6.2
-Stable tag: 1.1.4
+Tested up to: 7.0.1
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ Yes, you can activate & deactivate a plugin on your staging site. This can be he
 To activate & deactivate a plugin using WPOven Plugin Switcher, go to the WPOven Plugin Switcher settings page and select the "Status, Rule Type, Select Plugins, Plugin Status" option for the plugin you want to activate or deactivate.
 
 == Changelog ==
+
+= 1.1.5 =
+* Added compatibility with PHP 8.4.18 and resolved deprecated warnings.
 
 = 1.1.4 =
 * Added front-end specific plugin activation/deactivation control.
