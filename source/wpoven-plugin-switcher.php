@@ -47,16 +47,9 @@ define('WPOVEN_PLUGIN_SWITCHER_PLUGIN_DIR', plugin_dir_path(__DIR__));
 define('WPOVEN_PLUGIN_SWITCHER_PLUGIN_BASE', plugin_basename(WPOVEN_PLUGIN_SWITCHER_ROOT_PL));
 define('WPOVEN_SWITCHER_PATH', realpath(plugin_dir_path(WPOVEN_PLUGIN_SWITCHER_ROOT_PL)) . '/');
 
-require_once plugin_dir_path(__FILE__) . 'includes/libraries/plugin-update-checker/plugin-update-checker.php';
-
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/baseapp/wpoven_pluginswitcher',
-	__FILE__,
-	'wpoven-plugin-switcher'
-);
-$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+if (file_exists(plugin_dir_path(__FILE__) . 'includes/class-wpoven-plugin-switcher-updater.php')) {
+	require_once plugin_dir_path(__FILE__) . 'includes/class-wpoven-plugin-switcher-updater.php';
+}
 
 /**
  * The code that runs during plugin activation.

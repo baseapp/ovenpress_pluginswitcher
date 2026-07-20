@@ -1,5 +1,7 @@
 <?php
 
+if (! defined('ABSPATH')) exit;
+
 /**
  * File to create must-use plugin for Wpoven_Plugin_Switcher.
  *
