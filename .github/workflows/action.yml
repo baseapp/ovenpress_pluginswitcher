@@ -120,10 +120,10 @@ jobs:
           exclude-files: |
             .gitignore
             .gitmodules
+            includes/class-wpoven-plugin-switcher-updater.php
           exclude-directories: |
             includes/libraries/redux-framework
             includes/libraries/plugin-update-checker
-            includes/class-wpoven-plugin-switcher-updater.php
         env:
           PLUGIN_DIR: ${{ env.PLUGIN_PATH }}
           PLUGIN_SLUG: ${{ env.PLUGIN_SLUG }}
