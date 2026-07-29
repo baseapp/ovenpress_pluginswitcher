@@ -6,8 +6,8 @@
  * @link       https://www.wpoven.com/plugins/
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/admin
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/admin
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/admin
  * @author     WPOven <contact@wpoven.com>
  */
-class Wpoven_Plugin_Switcher_Admin
+class Ovenpress_Plugin_Switcher_Admin
 {
 
 	/**
@@ -40,7 +40,7 @@ class Wpoven_Plugin_Switcher_Admin
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
-	private $_wpoven_plugin_switcher;
+	private $_ovenpress_plugin_switcher;
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -78,15 +78,15 @@ class Wpoven_Plugin_Switcher_Admin
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpoven_Plugin_Switcher_Loader as all of the hooks are defined
+		 * defined in Ovenpress_Plugin_Switcher_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpoven_Plugin_Switcher_Loader will then create the relationship
+		 * The Ovenpress_Plugin_Switcher_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/wpoven-plugin-switcher-admin.css', array(), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ovenpress-plugin-switcher-admin.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -101,15 +101,15 @@ class Wpoven_Plugin_Switcher_Admin
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpoven_Plugin_Switcher_Loader as all of the hooks are defined
+		 * defined in Ovenpress_Plugin_Switcher_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpoven_Plugin_Switcher_Loader will then create the relationship
+		 * The Ovenpress_Plugin_Switcher_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wpoven-plugin-switcher-admin.js', array('jquery'), $this->version, false);
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ovenpress-plugin-switcher-admin.js', array('jquery'), $this->version, false);
 	}
 
 	function getRandomString($n)
@@ -125,13 +125,13 @@ class Wpoven_Plugin_Switcher_Admin
 		return $randomString;
 	}
 
-	function wpoven_plugin_switcher_optimized_group_of_plugins($options)
+	function ovenpress_plugin_switcher_optimized_group_of_plugins($options)
 	{
-		$ruleStatus = get_option('wpoven-plugin-switcher-rules-setting');
+		$ruleStatus = get_option('ovenpress-plugin-switcher-rules-setting');
 		if (!is_array($options) || empty($ruleStatus['wps_settings']['wps_rules'])) {
 			$options = array();
 			$options['wps_settings']['wps_rules']['v' . $this->getRandomString(4) . '_name'] =  'Custom Rule';
-			update_option('wpoven-plugin-switcher-rules-setting', $options);
+			update_option('ovenpress-plugin-switcher-rules-setting', $options);
 		};
 
 
@@ -150,7 +150,7 @@ class Wpoven_Plugin_Switcher_Admin
 			}
 
 			$options['wps_settings']['wps_rules']['v' . $uid . '_name'] =  $ruleName;
-			update_option('wpoven-plugin-switcher-rules-setting', $options);
+			update_option('ovenpress-plugin-switcher-rules-setting', $options);
 		}
 
 		$delete = isset($_GET['delete']) ? sanitize_text_field(wp_unslash($_GET['delete'])) : false;
@@ -160,11 +160,11 @@ class Wpoven_Plugin_Switcher_Admin
 			foreach ($options['wps_settings']['wps_rules'] as $key => $rule) {
 				if (isset($options['wps_settings']['wps_rules'][$key]) && strstr($key, $uid)) {
 					unset($options['wps_settings']['wps_rules'][$key]);
-					update_option(WPOVEN_PLUGIN_SWITCHER_SLUG . '-rules-setting', $options);
+					update_option(OVENPRESS_PLUGIN_SWITCHER_SLUG . '-rules-setting', $options);
 
-					$this->wpoven_plugin_options_process(get_option(WPOVEN_PLUGIN_SWITCHER_SLUG));
+					$this->ovenpress_plugin_options_process(get_option(OVENPRESS_PLUGIN_SWITCHER_SLUG));
 
-					header('Location: ' . admin_url('/admin.php?page=wpoven-plugin-switcher'));
+					header('Location: ' . admin_url('/admin.php?page=ovenpress-plugin-switcher'));
 					die();
 				}
 			}
@@ -179,7 +179,7 @@ class Wpoven_Plugin_Switcher_Admin
 			$plugin_options[$plugin] = $option_value;
 		}
 
-		unset($plugin_options[WPOVEN_PLUGIN_SWITCHER_SLUG . '/' . WPOVEN_PLUGIN_SWITCHER_SLUG . '.php']);
+		unset($plugin_options[OVENPRESS_PLUGIN_SWITCHER_SLUG . '/' . OVENPRESS_PLUGIN_SWITCHER_SLUG . '.php']);
 
 		$accordions = array();
 		$addRule = array(
@@ -219,7 +219,7 @@ class Wpoven_Plugin_Switcher_Admin
 
 				$delteURL = $current_url . '&delete=' . $uid;
 
-				$rulesDetails = get_option('wpoven-plugin-switcher');
+				$rulesDetails = get_option('ovenpress-plugin-switcher');
 				$accordion_class = '';
 				if (isset($rulesDetails[$uid . '_status'])) {
 					if ($rulesDetails[$uid . '_status'] == true) {
@@ -235,7 +235,7 @@ class Wpoven_Plugin_Switcher_Admin
 					'id'        => $uid . '-start',
 					'type'      => 'accordion',
 					'title'     => $rulesDetails[$uid . '_name'] ?? $ruleName,
-					'subtitle'     => admin_url('admin.php?page=' . WPOVEN_PLUGIN_SWITCHER_SLUG . '&rule=' . $ruleName),
+					'subtitle'     => admin_url('admin.php?page=' . OVENPRESS_PLUGIN_SWITCHER_SLUG . '&rule=' . $ruleName),
 					'class'     => $accordion_class,
 					'open'      => $open,
 					'position'  => 'start',
@@ -363,17 +363,17 @@ class Wpoven_Plugin_Switcher_Admin
 	}
 
 	/**
-	 * Set wpoven plugin switcher admin page.
+	 * Set ovenpress plugin switcher admin page.
 	 */
 	function setup_gui()
 	{
-		$options = get_option(WPOVEN_PLUGIN_SWITCHER_SLUG . '-rules-setting');
+		$options = get_option(OVENPRESS_PLUGIN_SWITCHER_SLUG . '-rules-setting');
 
 		if (!class_exists('Redux')) {
 			return;
 		}
 
-		$opt_name = WPOVEN_PLUGIN_SWITCHER_SLUG;
+		$opt_name = OVENPRESS_PLUGIN_SWITCHER_SLUG;
 		Redux::disable_demo();
 
 		/**
@@ -383,11 +383,11 @@ class Wpoven_Plugin_Switcher_Admin
 
 		$args = array(
 			'opt_name'                  => $opt_name,
-			'display_name'              => 'WPOven Plugin Switcher',
+			'display_name'              => 'OvenPress Plugin Switcher',
 			'display_version'           => ' ',
 			//'menu_type'                 => 'menu',
 			'allow_sub_menu'            => true,
-			//'menu_title'                => esc_html__('WPOven Plugins', 'your-textdomain-here'),
+			//'menu_title'                => esc_html__('OvenPress Plugins', 'your-textdomain-here'),
 			//'page_title'                => esc_html__('Plugin Switcher', 'your-textdomain-here'),
 			'disable_google_fonts_link' => false,
 			'admin_bar'                 => false,
@@ -412,7 +412,7 @@ class Wpoven_Plugin_Switcher_Admin
 			'transient_time'            => 60 * MINUTE_IN_SECONDS,
 			'output'                    => false,
 			'output_tag'                => false,
-			//'footer_credit'             => 'Please rate WPOven Plugin Switcher ★★★★★ on WordPress.org to support us. Thank you!',
+			//'footer_credit'             => 'Please rate OvenPress Plugin Switcher ★★★★★ on WordPress.org to support us. Thank you!',
 			'footer_credit'             => ' ',
 			'use_cdn'                   => false,
 			'admin_theme'               => 'wp',
@@ -439,7 +439,7 @@ class Wpoven_Plugin_Switcher_Admin
 				'icon'             => 'dashicons dashicons-admin-plugins',
 				'heading'		   => 'Activation & Deactivation Rules',
 				'desc'             => 'Manage plugin activation and deactivation based on pages, posts, and custom URIs with flexible rules and conditions.',
-				'fields' => $this->wpoven_plugin_switcher_optimized_group_of_plugins($options),
+				'fields' => $this->ovenpress_plugin_switcher_optimized_group_of_plugins($options),
 			)
 		);
 	}
@@ -453,9 +453,9 @@ class Wpoven_Plugin_Switcher_Admin
 		WP_Filesystem();
 
 		// Define paths
-		$wpoven_muplugin_source_path = plugin_dir_path(dirname(__FILE__)) . 'mu-plugin/class-wpoven-plugin-switcher-mu-plugin.php';
+		$ovenpress_muplugin_source_path = plugin_dir_path(dirname(__FILE__)) . 'mu-plugin/class-ovenpress-plugin-switcher-mu-plugin.php';
 		$mu_plugins_dir_path = WP_CONTENT_DIR . '/mu-plugins';
-		$mu_plugin_file_path = $mu_plugins_dir_path . '/class-wpoven-plugin-switcher-mu-plugin.php';
+		$mu_plugin_file_path = $mu_plugins_dir_path . '/class-ovenpress-plugin-switcher-mu-plugin.php';
 
 		// Check if the mu-plugins directory exists; if not, create it
 		if (! $wp_filesystem->is_dir($mu_plugins_dir_path)) {
@@ -465,7 +465,7 @@ class Wpoven_Plugin_Switcher_Admin
 		if ($enable) {
 			// Copy the file if the directory exists and `$enable` is true
 			if ($wp_filesystem->is_dir($mu_plugins_dir_path)) {
-				$wp_filesystem->copy($wpoven_muplugin_source_path, $mu_plugin_file_path, true, FS_CHMOD_FILE);
+				$wp_filesystem->copy($ovenpress_muplugin_source_path, $mu_plugin_file_path, true, FS_CHMOD_FILE);
 			}
 		} else {
 			// Remove the file if `$enable` is false and the file exists
@@ -475,9 +475,9 @@ class Wpoven_Plugin_Switcher_Admin
 		}
 	}
 
-	function wpoven_plugin_options_process($options)
+	function ovenpress_plugin_options_process($options)
 	{
-		$rules_setting = get_option(WPOVEN_PLUGIN_SWITCHER_SLUG . '-rules-setting');
+		$rules_setting = get_option(OVENPRESS_PLUGIN_SWITCHER_SLUG . '-rules-setting');
 		if (isset($rules_setting['wps_settings']['wps_rules']) && is_array($rules_setting['wps_settings']['wps_rules'])) {
 			$rules = $options;
 
@@ -512,31 +512,31 @@ class Wpoven_Plugin_Switcher_Admin
 			}
 			$this->add_mu_plugin($enable);
 
-			update_option(WPOVEN_PLUGIN_SWITCHER_SLUG . '-rules', $processed_rules);
+			update_option(OVENPRESS_PLUGIN_SWITCHER_SLUG . '-rules', $processed_rules);
 		}
 	}
 
 	/**
 	 * Add a admin menu.
 	 */
-	function wpoven_plugin_switcher_menu()
+	function ovenpress_plugin_switcher_menu()
 	{
-		add_menu_page('WPOven Plugins', 'WPOven Plugins', '', 'wpoven', 'manage_options', plugin_dir_url(__FILE__) . '/img/logo.png');
-		add_submenu_page('wpoven', 'Plugin Switcher', 'Plugin Switcher', 'manage_options', WPOVEN_PLUGIN_SWITCHER_SLUG);
+		add_menu_page('OvenPress Plugins', 'OvenPress Plugins', '', 'ovenpress', 'manage_options', plugin_dir_url(__FILE__) . '/img/logo.png');
+		add_submenu_page('ovenpress', 'Plugin Switcher', 'Plugin Switcher', 'manage_options', OVENPRESS_PLUGIN_SWITCHER_SLUG);
 	}
 
 	function my_plugin_enqueue_scripts()
 	{
 		wp_enqueue_script(
-			'wpoven-plugin-switcher-script',
-			plugin_dir_url(__FILE__) . '/js/wpoven-plugin-switcher-admin.js',
+			'ovenpress-plugin-switcher-script',
+			plugin_dir_url(__FILE__) . '/js/ovenpress-plugin-switcher-admin.js',
 			array('jquery'),
 			null,
 			true
 		);
 
 		// Pass the URL of the icon to JavaScript
-		wp_localize_script('wpoven-plugin-switcher-script', 'myPluginData', array(
+		wp_localize_script('ovenpress-plugin-switcher-script', 'myPluginData', array(
 			'iconUrl' => plugin_dir_url(__FILE__) . '/img/copy.png'
 		));
 	}
@@ -544,12 +544,12 @@ class Wpoven_Plugin_Switcher_Admin
 	/**
 	 * Hook to add the admin menu.
 	 */
-	public function admin_main(Wpoven_Plugin_Switcher $wpoven_plugin_switcher)
+	public function admin_main(Ovenpress_Plugin_Switcher $ovenpress_plugin_switcher)
 	{
-		$this->_wpoven_plugin_switcher = $wpoven_plugin_switcher;
+		$this->_ovenpress_plugin_switcher = $ovenpress_plugin_switcher;
 		add_action('admin_enqueue_scripts', array($this, 'my_plugin_enqueue_scripts'));
-		add_action('admin_menu', array($this, 'wpoven_plugin_switcher_menu'));
+		add_action('admin_menu', array($this, 'ovenpress_plugin_switcher_menu'));
 		$this->setup_gui();
-		add_action('redux/options/' . WPOVEN_PLUGIN_SWITCHER_SLUG . '/saved', array($this, 'wpoven_plugin_options_process'));
+		add_action('redux/options/' . OVENPRESS_PLUGIN_SWITCHER_SLUG . '/saved', array($this, 'ovenpress_plugin_options_process'));
 	}
 }

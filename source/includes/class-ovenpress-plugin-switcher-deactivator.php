@@ -6,8 +6,8 @@
  * @link       https://www.wpoven.com/plugins/
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/includes
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/includes
  */
 
 /**
@@ -16,11 +16,12 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/includes
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/includes
  * @author     WPOven <contact@wpoven.com>
  */
-class Wpoven_Plugin_Switcher_Deactivator {
+class Ovenpress_Plugin_Switcher_Deactivator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,8 +30,5 @@ class Wpoven_Plugin_Switcher_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
-
-	}
-
+	public static function deactivate() {}
 }

@@ -22,7 +22,7 @@
  * @link       https://www.wpoven.com/plugins/
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
+ * @package    Ovenpress_Plugin_Switcher
  */
 
 // If uninstall not called from WordPress, then exit.

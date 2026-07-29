@@ -3,19 +3,19 @@
 if (! defined('ABSPATH')) exit;
 
 /**
- * File to create must-use plugin for Wpoven_Plugin_Switcher.
+ * File to create must-use plugin for Ovenpress_Plugin_Switcher.
  *
  * @link       https://wpoven.com
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/mu-plugin
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/mu-plugin
  */
 
 
-if (!defined('WPOVEN_PLUGIN_SWITCHER_SLUG'))
-    define('WPOVEN_PLUGIN_SWITCHER_SLUG', 'wpoven-plugin-switcher');
-class WPOvenPluginSwitcher
+if (!defined('OVENPRESS_PLUGIN_SWITCHER_SLUG'))
+    define('OVENPRESS_PLUGIN_SWITCHER_SLUG', 'ovenpress-plugin-switcher');
+class Ovenpress_Plugin_Switcher_MU_Plugin
 {
     public function __construct()
     {
@@ -46,7 +46,7 @@ class WPOvenPluginSwitcher
 
     function processRules($plugins)
     {
-        $rules = get_option(WPOVEN_PLUGIN_SWITCHER_SLUG . '-rules');
+        $rules = get_option(OVENPRESS_PLUGIN_SWITCHER_SLUG . '-rules');
         $rulePlugins = array();
         $current_page_url = home_url(add_query_arg(NULL, NULL));
         $current_page_url = trim($current_page_url, "/");
@@ -140,7 +140,7 @@ class WPOvenPluginSwitcher
             $rulePlugins = $plugins;
         }
 
-        $plugin_file = WPOVEN_PLUGIN_SWITCHER_SLUG . '/' . WPOVEN_PLUGIN_SWITCHER_SLUG . '.php';
+        $plugin_file = OVENPRESS_PLUGIN_SWITCHER_SLUG . '/' . OVENPRESS_PLUGIN_SWITCHER_SLUG . '.php';
         $rulePlugins[] = $plugin_file;
 
         return $rulePlugins;
@@ -148,6 +148,6 @@ class WPOvenPluginSwitcher
 }
 
 // Instantiate the class
-$wpoven_plugin_switcher = new WPOvenPluginSwitcher();
+$ovenpress_plugin_switcher = new Ovenpress_Plugin_Switcher_MU_Plugin();
 
-add_filter('option_active_plugins', array($wpoven_plugin_switcher, 'processRules'));
+add_filter('option_active_plugins', array($ovenpress_plugin_switcher, 'processRules'));

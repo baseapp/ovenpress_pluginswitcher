@@ -11,7 +11,7 @@
     }
 
     var element = document.querySelector(
-      "li.toplevel_page_wpoven-plugin-switcher"
+      "li.toplevel_page_ovenpress-plugin-switcher",
     );
     if (element) {
       element.remove();
@@ -19,11 +19,11 @@
 
     function checkVisibilityAndRefresh() {
       let savedNotice = document.querySelector(
-        ".saved_notice.admin-notice.notice-green"
+        ".saved_notice.admin-notice.notice-green",
       );
 
       let errorNotices = document.querySelector(
-        ".redux-field-errors.notice-red"
+        ".redux-field-errors.notice-red",
       );
 
       if (
@@ -39,7 +39,7 @@
     setInterval(checkVisibilityAndRefresh, 1000);
 
     //remove extra menu title
-    const menuItems = document.querySelectorAll("li#toplevel_page_wpoven");
+    const menuItems = document.querySelectorAll("li#toplevel_page_ovenpress");
     const menuArray = Array.from(menuItems);
     for (let i = 1; i < menuArray.length; i++) {
       menuArray[i].remove();
@@ -74,7 +74,7 @@
     }
 
     var elements = document.querySelectorAll(
-      "div.redux-accordion-info.form-table-accordion"
+      "div.redux-accordion-info.form-table-accordion",
     );
 
     elements.forEach(function (element) {
@@ -126,7 +126,7 @@
 
         // Copy link to clipboard
         var element = this.closest(
-          ".redux-accordion-info.form-table-accordion"
+          ".redux-accordion-info.form-table-accordion",
         );
         var text = element.querySelector(".redux-accordion-desc").textContent;
         var textarea = document.createElement("textarea");

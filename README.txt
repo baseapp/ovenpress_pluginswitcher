@@ -1,24 +1,24 @@
-=== WPOven Plugin Switcher ===
+=== OvenPress Plugin Switcher ===
 Contributors: https://www.wpoven.com/
 Requires at least: 6.6
 Tested up to: 7.0.1
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-WPOven Plugin Switcher is a powerful WordPress management tool that enables users to easily activate or deactivate plugins on specific pages or posts,
+OvenPress Plugin Switcher is a powerful WordPress management tool that enables users to easily activate or deactivate plugins on specific pages or posts,
 optimizing site performance and functionality while streamlining plugin configurations for a customized website experience.
 
 == Screenshots ==
-![Plugin Switcher](https://raw.githubusercontent.com/baseapp/wpoven_pluginswitcher/main/assets/screenshots/wpoven-plugin-switcher.png)
+![Plugin Switcher](https://raw.githubusercontent.com/baseapp/ovenpress_pluginswitcher/main/assets/screenshots/ovenpress-plugin-switcher.png)
 
 == Installation ==
 
 1. **Download the Plugin:**
-- To get the latest version of WPOven Plugin Switcher, you can either:
-- [Visit WPOven's website](https://www.wpoven.com/plugins/wpoven-plugin-switcher) to learn more about the plugin.
+- To get the latest version of OvenPress Plugin Switcher, you can either:
+- [Visit OvenPress's website](https://www.wpoven.com/plugins/ovenpress-plugin-switcher) to learn more about the plugin.
 
 2. **Upload the Plugin:**
 - Log in to your WordPress admin dashboard.
@@ -30,7 +30,7 @@ optimizing site performance and functionality while streamlining plugin configur
 - After the installation is complete, click on the **Activate Plugin** link.
 
 4. **Configure Plugin Settings:**
-- Once activated, go to **Plugin Switcher Settings** > **WPOven Plugin Switcher** in the WordPress admin menu.
+- Once activated, go to **Plugin Switcher Settings** > **OvenPress Plugin Switcher** in the WordPress admin menu.
 - Configure the plugin settings as per your requirements.
 
 5. **Usage:**
@@ -41,17 +41,17 @@ optimizing site performance and functionality while streamlining plugin configur
 
 == Frequently Asked Questions ==
 
-= What Is WPOven Plugin Switcher? =
-WPOven Plugin Switcher is a WordPress plugin management tool that enables website owners to choose which plugins to activate or deactivate on specific pages or posts.
+= What Is OvenPress Plugin Switcher? =
+OvenPress Plugin Switcher is a WordPress plugin management tool that enables website owners to choose which plugins to activate or deactivate on specific pages or posts.
 
 = How do I activate & deactivate a WordPress plugin on a specific page or post? =
-To activate & deactivate a WordPress plugin on a specific page or post, you can use a plugin like WPOven Plugin Switcher. This plugin allows you to activate & deactivate any plugin, including WordPress core plugins, on a specific page or post or using a custom URL.
+To activate & deactivate a WordPress plugin on a specific page or post, you can use a plugin like OvenPress Plugin Switcher. This plugin allows you to activate & deactivate any plugin, including WordPress core plugins, on a specific page or post or using a custom URL.
 
 = Can I activate & deactivate plugins for multiple pages or posts at once? =
 Yes, you can select multiple pages or posts to activate & deactivate a plugin.
 
-= Can WPOven Plugin Switcher activate & deactivate multiple plugins at once? =
-Yes, WPOven Plugin Switcher allows you to activate & deactivate multiple plugins simultaneously, saving you time and effort.
+= Can OvenPress Plugin Switcher activate & deactivate multiple plugins at once? =
+Yes, OvenPress Plugin Switcher allows you to activate & deactivate multiple plugins simultaneously, saving you time and effort.
 
 = How can I disable WordPress plugins by custom URL? =
 You can activate & deactivate a plugin via a custom URL. For example, consider that you are using the WooCommerce Plugin. You likely don't need to load the WooCommerce CSS/JS files on contact pages. To do this:
@@ -67,10 +67,13 @@ Yes, it is safe to activate & deactivate WordPress plugins. However, you should 
 = Can I disable a plugin on my staging site? =
 Yes, you can activate & deactivate a plugin on your staging site. This can be helpful if you want to test how your website performs without a particular plugin.
 
-= How do I disable a plugin using WPOven Plugin Switcher? =
-To activate & deactivate a plugin using WPOven Plugin Switcher, go to the WPOven Plugin Switcher settings page and select the "Status, Rule Type, Select Plugins, Plugin Status" option for the plugin you want to activate or deactivate.
+= How do I disable a plugin using OvenPress Plugin Switcher? =
+To activate & deactivate a plugin using OvenPress Plugin Switcher, go to the OvenPress Plugin Switcher settings page and select the "Status, Rule Type, Select Plugins, Plugin Status" option for the plugin you want to activate or deactivate.
 
 == Changelog ==
+
+= 1.1.6 =
+* Renamed the plugin branding from WPOven to OvenPress.
 
 = 1.1.5 =
 * Added compatibility with PHP 8.4.18 and resolved deprecated warnings.
@@ -88,7 +91,7 @@ To activate & deactivate a plugin using WPOven Plugin Switcher, go to the WPOven
 * Prevent the plugin switcher from running on the frontend to improve page load performance.
 
 = 1.1.0 =
-* Prevent deactivation of WPOven Plugin Switcher.
+* Prevent deactivation of OvenPress Plugin Switcher.
 * Improved rule matching logic.
 
 = 1.0.0 =
@@ -99,3 +102,4 @@ To activate & deactivate a plugin using WPOven Plugin Switcher, go to the WPOven
 * List versions from most recent at top to oldest at bottom.
 
 == Upgrade Notice ==
+* This release introduces the OvenPress brand, replacing the previous WPOven branding.

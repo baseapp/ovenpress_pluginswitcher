@@ -10,8 +10,8 @@ if (! defined('ABSPATH')) exit;
  * @link       https://www.wpoven.com/plugins/
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/admin/partials
+ * @package    OvenPress_Plugin_Switcher
+ * @subpackage OvenPress_Plugin_Switcher/admin/partials
  */
 ?>
 

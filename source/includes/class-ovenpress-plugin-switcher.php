@@ -9,8 +9,8 @@
  * @link       https://www.wpoven.com/plugins/
  * @since      1.0.0
  *
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/includes
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Wpoven_Plugin_Switcher
- * @subpackage Wpoven_Plugin_Switcher/includes
+ * @package    Ovenpress_Plugin_Switcher
+ * @subpackage Ovenpress_Plugin_Switcher/includes
  * @author     WPOven <contact@wpoven.com>
  */
-class Wpoven_Plugin_Switcher
+class Ovenpress_Plugin_Switcher
 {
 
 	/**
@@ -36,7 +36,7 @@ class Wpoven_Plugin_Switcher
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wpoven_Plugin_Switcher_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Ovenpress_Plugin_Switcher_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -70,12 +70,12 @@ class Wpoven_Plugin_Switcher
 	 */
 	public function __construct()
 	{
-		if (defined('WPOVEN_PLUGIN_SWITCHER_VERSION')) {
-			$this->version = WPOVEN_PLUGIN_SWITCHER_VERSION;
+		if (defined('OVENPRESS_PLUGIN_SWITCHER_VERSION')) {
+			$this->version = OVENPRESS_PLUGIN_SWITCHER_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'wpoven-plugin-switcher';
+		$this->plugin_name = 'ovenpress-plugin-switcher';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -91,10 +91,10 @@ class Wpoven_Plugin_Switcher
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Wpoven_Plugin_Switcher_Loader. Orchestrates the hooks of the plugin.
-	 * - Wpoven_Plugin_Switcher_i18n. Defines internationalization functionality.
-	 * - Wpoven_Plugin_Switcher_Admin. Defines all hooks for the admin area.
-	 * - Wpoven_Plugin_Switcher_Public. Defines all hooks for the public side of the site.
+	 * - Ovenpress_Plugin_Switcher_Loader. Orchestrates the hooks of the plugin.
+	 * - Ovenpress_Plugin_Switcher_i18n. Defines internationalization functionality.
+	 * - Ovenpress_Plugin_Switcher_Admin. Defines all hooks for the admin area.
+	 * - Ovenpress_Plugin_Switcher_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -109,32 +109,32 @@ class Wpoven_Plugin_Switcher
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-wpoven-plugin-switcher-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ovenpress-plugin-switcher-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-wpoven-plugin-switcher-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ovenpress-plugin-switcher-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-wpoven-plugin-switcher-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-ovenpress-plugin-switcher-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-wpoven-plugin-switcher-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-ovenpress-plugin-switcher-public.php';
 
-		$this->loader = new Wpoven_Plugin_Switcher_Loader();
+		$this->loader = new Ovenpress_Plugin_Switcher_Loader();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Wpoven_Plugin_Switcher_i18n class in order to set the domain and to register the hook
+	 * Uses the Ovenpress_Plugin_Switcher_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -143,7 +143,7 @@ class Wpoven_Plugin_Switcher
 	private function set_locale()
 	{
 
-		$plugin_i18n = new Wpoven_Plugin_Switcher_i18n();
+		$plugin_i18n = new Ovenpress_Plugin_Switcher_i18n();
 
 		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
@@ -158,7 +158,7 @@ class Wpoven_Plugin_Switcher
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new Wpoven_Plugin_Switcher_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new Ovenpress_Plugin_Switcher_Admin($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -176,7 +176,7 @@ class Wpoven_Plugin_Switcher
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new Wpoven_Plugin_Switcher_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new Ovenpress_Plugin_Switcher_Public($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -189,7 +189,7 @@ class Wpoven_Plugin_Switcher
 	 */
 	public function run()
 	{
-		$this->options = get_option(WPOVEN_PLUGIN_SWITCHER_SLUG);
+		$this->options = get_option(OVENPRESS_PLUGIN_SWITCHER_SLUG);
 		$this->loader->run();
 	}
 
@@ -209,7 +209,7 @@ class Wpoven_Plugin_Switcher
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Wpoven_Plugin_Switcher_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Ovenpress_Plugin_Switcher_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
 	{

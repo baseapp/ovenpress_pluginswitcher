@@ -13,15 +13,15 @@ on:
       plugin_version:
         description: "Plugin version to release"
         required: true
-        default: "1.1.5"
+        default: "1.1.6"
 
 env:
-  PLUGIN_SLUG: "wpoven-plugin-switcher"
+  PLUGIN_SLUG: "ovenpress-plugin-switcher"
   WP_PATH: /var/www/html
-  PLUGIN_PATH: /var/www/html/wp-content/plugins/wpoven_pluginswitcher
+  PLUGIN_PATH: /var/www/html/wp-content/plugins/ovenpress_pluginswitcher
   WORDPRESS_URL: http://localhost
   ADMIN_USER: admin
-  ADMIN_PASSWORD: Wpoven@baseapp1
+  ADMIN_PASSWORD: Ovenpress@baseapp1
   ADMIN_EMAIL: admin@example.com
 
 jobs:
@@ -91,7 +91,7 @@ jobs:
           sudo mkdir -p $PLUGIN_PATH
           # Clone the repository into a temporary directory
           TEMP_DIR=$(mktemp -d)
-          git clone https://github.com/baseapp/wpoven_pluginswitcher $TEMP_DIR
+          git clone https://github.com/baseapp/ovenpress_pluginswitcher $TEMP_DIR
           cd $TEMP_DIR
           git submodule init
           git submodule sync
@@ -107,8 +107,8 @@ jobs:
         id: plugin-check
         run: |
           cd $WP_PATH
-          wp plugin activate wpoven_pluginswitcher
-          wp plugin verify-checksums wpoven_pluginswitcher
+          wp plugin activate ovenpress_pluginswitcher
+          wp plugin verify-checksums ovenpress_pluginswitcher
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Run Plugin Check
@@ -120,7 +120,7 @@ jobs:
           exclude-files: |
             .gitignore
             .gitmodules
-            includes/class-wpoven-plugin-switcher-updater.php
+            includes/class-ovenpress-plugin-switcher-updater.php
           exclude-directories: |
             includes/libraries/redux-framework
             includes/libraries/plugin-update-checker
@@ -132,7 +132,7 @@ jobs:
       - name: Verify Plugin Accessibility
         run: |
           SITE_URL="http://localhost"
-          PLUGIN_SETTINGS_PAGE="$SITE_URL/wp-admin/admin.php?page=wpoven-plugin-switcher"
+          PLUGIN_SETTINGS_PAGE="$SITE_URL/wp-admin/admin.php?page=ovenpress-plugin-switcher"
 
           MAIN_PAGE_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$SITE_URL")
           SETTINGS_PAGE_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$PLUGIN_SETTINGS_PAGE")
@@ -160,7 +160,7 @@ jobs:
         id: versions
         run: |
           RELEASE_DATE=$(date +'%Y-%m-%d')
-          PLUGIN_VERSION="${{ github.event.inputs.plugin_version || '1.1.5' }}"
+          PLUGIN_VERSION="${{ github.event.inputs.plugin_version || '1.1.6' }}"
           ZIP_NAME="${{ env.PLUGIN_SLUG }}.zip"
 
           echo "release_date=$RELEASE_DATE" >> $GITHUB_OUTPUT
@@ -182,21 +182,21 @@ jobs:
         run: |
           sed -i "s/\*\*Tested up to:\*\* [0-9.]*/**Tested up to:** ${{ github.event.inputs.wp_version || '7.0.1' }}/" README.md
           sed -i "s/\*\*Stable tag:\*\* [0-9.]*/**Stable tag:** ${{ steps.versions.outputs.plugin_version }}/" README.md
-          sed -i "s|/releases/download/[0-9.]*/wpoven-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.md
+          sed -i "s|/releases/download/[0-9.]*/ovenpress-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.md
 
           # Update README.txt
           sed -i "s/Tested up to: [0-9.]*/Tested up to: ${{ github.event.inputs.wp_version || '7.0.1' }}/" README.txt
           sed -i "s/Stable tag: [0-9.]*/Stable tag: ${{ steps.versions.outputs.plugin_version }}/" README.txt
-          sed -i "s|/releases/download/[0-9.]*/wpoven-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.txt
+          sed -i "s|/releases/download/[0-9.]*/ovenpress-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.txt
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ steps.versions.outputs.zip_name }}
           tag_name: ${{ steps.versions.outputs.plugin_version }}
-          name: "WPOven Plugin Switcher v${{ steps.versions.outputs.plugin_version }}"
+          name: "OvenPress Plugin Switcher v${{ steps.versions.outputs.plugin_version }}"
           body: |
-            🚀 WPOven Plugin Switcher Release v${{ steps.versions.outputs.plugin_version }}
+            🚀 OvenPress Plugin Switcher Release v${{ steps.versions.outputs.plugin_version }}
 
             Release Date: ${{ steps.versions.outputs.release_date }}
             Tested with WordPress: ${{ github.event.inputs.wp_version || '7.0.1' }}
