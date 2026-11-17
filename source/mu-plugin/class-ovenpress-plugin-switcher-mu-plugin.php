@@ -30,7 +30,7 @@ class Ovenpress_Plugin_Switcher_MU_Plugin
         //if (@preg_match($pattern, null) !== FALSE) {
         if (@preg_match('#' . $pattern . '#', "") !== FALSE) {
             // It's a regex pattern, perform regex match
-            return preg_match($pattern, $input) ? true : false;
+            return preg_match('#' . $pattern . '#', $input) ? true : false;
         } else {
             // It's a string, perform string match
             return strpos($input, $pattern) !== false ? true : false;
