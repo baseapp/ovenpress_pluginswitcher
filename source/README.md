@@ -4,8 +4,8 @@
 
 **Contributors:** [WPOven](https://www.wpoven.com/)  
 **Requires at least:** 6.6
-**Tested up to:** 7.0
-**Stable tag:** 1.1.6
+**Tested up to:** 7.1
+**Stable tag:** 1.1.7
 **License:** GPLv2 or later  
 **License URI:** [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -23,7 +23,7 @@ OvenPress Plugin Switcher is a powerful WordPress management tool that enables u
 
    - To get the latest version of OvenPress Plugin Switcher, you can either:
      - [Visit OvenPress's website](https://www.wpoven.com/plugins/ovenpress-plugin-switcher) to learn more about the plugin.
-     - Download directly from the GitHub repository: [Download](https://github.com/baseapp/ovenpress_pluginswitcher/releases/download/1.1.6/ovenpress-plugin-switcher.zip).
+     - Download directly from the GitHub repository: [Download](https://github.com/baseapp/ovenpress_pluginswitcher/releases/download/1.1.7/ovenpress-plugin-switcher.zip).
 
 2. **Upload the Plugin:**
 
@@ -89,6 +89,10 @@ Yes, you can activate & deactivate a plugin on your staging site. This can be he
 To activate & deactivate a plugin using OvenPress Plugin Switcher, go to the OvenPress Plugin Switcher settings page and select the "Status, Rule Type, Select Plugins, Plugin Status" option for the plugin you want to activate or deactivate.
 
 ## Changelog
+
+### 1.1.7
+
+- Fixed PHP 8.4 deprecation warnings in regex matching and current page slug detection.
 
 ### 1.1.6 
 

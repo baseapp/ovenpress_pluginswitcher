@@ -9,11 +9,11 @@ on:
       wp_version:
         description: "WordPress version to test against"
         required: true
-        default: "7.0.1"
+        default: "7.1.4"
       plugin_version:
         description: "Plugin version to release"
         required: true
-        default: "1.1.6"
+        default: "1.1.7"
 
 env:
   PLUGIN_SLUG: "ovenpress-plugin-switcher"
@@ -160,32 +160,48 @@ jobs:
         id: versions
         run: |
           RELEASE_DATE=$(date +'%Y-%m-%d')
-          PLUGIN_VERSION="${{ github.event.inputs.plugin_version || '1.1.6' }}"
+          PLUGIN_VERSION="${{ github.event.inputs.plugin_version || '1.1.7' }}"
           ZIP_NAME="${{ env.PLUGIN_SLUG }}.zip"
 
           echo "release_date=$RELEASE_DATE" >> $GITHUB_OUTPUT
           echo "plugin_version=$PLUGIN_VERSION" >> $GITHUB_OUTPUT
           echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
 
+      
       - name: Create plugin package
         run: |
-          # Create releases directory
           mkdir -p releases
 
-          # Create plugin zip
-          (cd source && zip -r "../releases/${{ steps.versions.outputs.zip_name }}" . -x ".*" -x "__MACOSX" -x "*.git*")
+          # Create a temporary directory with the correct plugin slug
+          mkdir -p package/${{ env.PLUGIN_SLUG }}
+
+          # Copy plugin source files into the slug directory
+          cp -a source/. package/${{ env.PLUGIN_SLUG }}/
+
+          # Create ZIP with the correct root folder
+          cd package
+          zip -r "../releases/${{ steps.versions.outputs.zip_name }}" "${{ env.PLUGIN_SLUG }}" \
+            -x "*/.*" \
+            -x "*/__MACOSX/*" \
+            -x "*/.git/*"
+
+          cd ..
 
           # Create copy for GitHub release
           cp "releases/${{ steps.versions.outputs.zip_name }}" "./${{ steps.versions.outputs.zip_name }}"
 
+          # Verify ZIP structure
+          unzip -l "releases/${{ steps.versions.outputs.zip_name }}"
+
+
       - name: Update README
         run: |
-          sed -i "s/\*\*Tested up to:\*\* [0-9.]*/**Tested up to:** ${{ github.event.inputs.wp_version || '7.0.1' }}/" README.md
+          sed -i "s/\*\*Tested up to:\*\* [0-9.]*/**Tested up to:** ${{ github.event.inputs.wp_version || '7.1.4' }}/" README.md
           sed -i "s/\*\*Stable tag:\*\* [0-9.]*/**Stable tag:** ${{ steps.versions.outputs.plugin_version }}/" README.md
           sed -i "s|/releases/download/[0-9.]*/ovenpress-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.md
 
           # Update README.txt
-          sed -i "s/Tested up to: [0-9.]*/Tested up to: ${{ github.event.inputs.wp_version || '7.0.1' }}/" README.txt
+          sed -i "s/Tested up to: [0-9.]*/Tested up to: ${{ github.event.inputs.wp_version || '7.1.4' }}/" README.txt
           sed -i "s/Stable tag: [0-9.]*/Stable tag: ${{ steps.versions.outputs.plugin_version }}/" README.txt
           sed -i "s|/releases/download/[0-9.]*/ovenpress-plugin-switcher-[0-9-]*.zip|/releases/download/${{ steps.versions.outputs.plugin_version }}/${{ steps.versions.outputs.zip_name }}|" README.txt
 
@@ -199,7 +215,7 @@ jobs:
             🚀 OvenPress Plugin Switcher Release v${{ steps.versions.outputs.plugin_version }}
 
             Release Date: ${{ steps.versions.outputs.release_date }}
-            Tested with WordPress: ${{ github.event.inputs.wp_version || '7.0.1' }}
+            Tested with WordPress: ${{ github.event.inputs.wp_version || '7.1.4' }}
           draft: false
           prerelease: false
         env:

@@ -26,7 +26,9 @@ class Ovenpress_Plugin_Switcher_MU_Plugin
     {
         // Check if pattern is a valid regex
         // We assume a valid regex pattern is enclosed with delimiters
-        if (@preg_match($pattern, null) !== FALSE) {
+        //if (@preg_match($pattern, '') !== FALSE) {
+        //if (@preg_match($pattern, null) !== FALSE) {
+        if (@preg_match('#' . $pattern . '#', "") !== FALSE) {
             // It's a regex pattern, perform regex match
             return preg_match($pattern, $input) ? true : false;
         } else {
@@ -50,7 +52,8 @@ class Ovenpress_Plugin_Switcher_MU_Plugin
         $rulePlugins = array();
         $current_page_url = home_url(add_query_arg(NULL, NULL));
         $current_page_url = trim($current_page_url, "/");
-        $current_page_slug = basename(wp_parse_url($current_page_url, PHP_URL_PATH));
+        //$current_page_slug = basename(wp_parse_url($current_page_url, PHP_URL_PATH));
+        $current_page_slug = basename(wp_parse_url($current_page_url, PHP_URL_PATH) ?: '');
         $matchFound = false;
 
         if (is_array($rules)) {

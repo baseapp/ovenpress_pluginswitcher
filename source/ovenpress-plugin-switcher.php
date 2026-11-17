@@ -16,7 +16,7 @@
  * Plugin Name:       OvenPress Plugin Switcher
  * Plugin URI:        https://www.wpoven.com/plugins/ovenpress-plugin-switcher
  * Description:       Allows users to quickly enable or disable plugins as per need. 
- * Version:           1.1.6
+ * Version:           1.1.7
  * Author:            WPOven
  * Author URI:        https://www.wpoven.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('OVENPRESS_PLUGIN_SWITCHER_VERSION', '1.1.6');
+define('OVENPRESS_PLUGIN_SWITCHER_VERSION', '1.1.7');
 if (!defined('OVENPRESS_PLUGIN_SWITCHER_SLUG'))
 	define('OVENPRESS_PLUGIN_SWITCHER_SLUG', 'ovenpress-plugin-switcher');
 
