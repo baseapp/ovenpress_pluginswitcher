@@ -169,22 +169,36 @@ jobs:
 
       - name: Create plugin package
         run: |
-          # Create releases directory
+          set -e
           mkdir -p releases
-
-          # Plugin folder name (becomes the root folder inside the zip)
           PLUGIN_SLUG="ovenpress-plugin-switcher"
+          ZIP_NAME="${{ steps.versions.outputs.zip_name }}"
 
-          # Stage files inside a folder with the plugin name
-          rm -rf build
+          # Fresh staging dir
+          rm -rf build "releases/${ZIP_NAME}"
           mkdir -p "build/${PLUGIN_SLUG}"
-          cp -a source/. "build/${PLUGIN_SLUG}/"
 
-          # Zip from the build directory so the root folder is included
-          (cd build && zip -r "../releases/${{ steps.versions.outputs.zip_name }}" "${PLUGIN_SLUG}" -x "*/.*" -x "*__MACOSX*" -x "*.git*")
+          # Copy plugin files, skipping any nested copy and dev/VCS files
+          rsync -a \
+            --exclude="/${PLUGIN_SLUG}/" \
+            --exclude=".git" --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude=".gitignore" --exclude=".gitattributes" \
+            --exclude=".travis.yml" --exclude=".distignore" \
+            --exclude=".editorconfig" --exclude=".eslintrc.json" \
+            --exclude=".eslintignore" --exclude=".jshintrc" --exclude=".jshintignore" \
+            --exclude="__MACOSX" \
+            source/ "build/${PLUGIN_SLUG}/"
 
-          # Create copy for GitHub release
-          cp "releases/${{ steps.versions.outputs.zip_name }}" "./${{ steps.versions.outputs.zip_name }}"
+          # Zip from build/ so the slug folder is the single root
+          (cd build && zip -rq "../releases/${ZIP_NAME}" "${PLUGIN_SLUG}")
+
+          # Fail the build if the structure is wrong
+          ROOTS=$(unzip -Z1 "releases/${ZIP_NAME}" | cut -d/ -f1 | sort -u)
+          [ "$ROOTS" = "${PLUGIN_SLUG}" ] || { echo "Bad zip structure:"; echo "$ROOTS"; exit 1; }
+
+          # Copy for GitHub release
+          cp "releases/${ZIP_NAME}" "./${ZIP_NAME}"
 
       - name: Update README
         run: |
