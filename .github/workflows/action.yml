@@ -166,29 +166,25 @@ jobs:
           echo "release_date=$RELEASE_DATE" >> $GITHUB_OUTPUT
           echo "plugin_version=$PLUGIN_VERSION" >> $GITHUB_OUTPUT
           echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
-      
+
       - name: Create plugin package
         run: |
+          # Create releases directory
           mkdir -p releases
-          mkdir -p package/${{ env.PLUGIN_SLUG }}
 
-          # Copy plugin files, excluding the accidental nested folder
-          rsync -a \
-            --exclude='/ovenpress-plugin-switcher/' \
-            --exclude='/.git/' \
-            source/ package/${{ env.PLUGIN_SLUG }}/
+          # Plugin folder name (becomes the root folder inside the zip)
+          PLUGIN_SLUG="ovenpress-plugin-switcher"
 
-          # Generate ZIP
-          cd package
-          zip -r "../releases/${{ steps.versions.outputs.zip_name }}" "${{ env.PLUGIN_SLUG }}"
+          # Stage files inside a folder with the plugin name
+          rm -rf build
+          mkdir -p "build/${PLUGIN_SLUG}"
+          cp -a source/. "build/${PLUGIN_SLUG}/"
 
-          cd ..
+          # Zip from the build directory so the root folder is included
+          (cd build && zip -r "../releases/${{ steps.versions.outputs.zip_name }}" "${PLUGIN_SLUG}" -x "*/.*" -x "*__MACOSX*" -x "*.git*")
 
-          # Copy for GitHub release
+          # Create copy for GitHub release
           cp "releases/${{ steps.versions.outputs.zip_name }}" "./${{ steps.versions.outputs.zip_name }}"
-
-          # Verify ZIP structure
-          unzip -l "releases/${{ steps.versions.outputs.zip_name }}"
 
       - name: Update README
         run: |
